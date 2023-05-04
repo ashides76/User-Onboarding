@@ -4,12 +4,12 @@ import TeammateForm from './TeammateForm';
 
 const initialFormValues = {
     //TextInputs
-    firstName: 'Ashish',
-    email: 'ashish@ashish.com',
+    firstName: '',
+    email: '',
     //dropdown
-    role: 'student',
+    role: '',
     //Radio buttons
-    civil: 'single',
+    civil: '',
     //Checkboxes
     hiking: false,
     reading: false,
@@ -45,7 +45,7 @@ function App() {
   }
 
   const formSubmit = () => {
-
+    
   }
 
   return (

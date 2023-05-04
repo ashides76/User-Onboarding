@@ -12,6 +12,9 @@ code {
     monospace;
 }
 
+* {
+  box-sizing: border-box;
+}
 .container {
   border: 1px solid rgb(210, 210, 210);
   border-radius: 6px;
