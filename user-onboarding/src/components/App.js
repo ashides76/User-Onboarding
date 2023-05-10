@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Teammate from './Teammate';
 import TeammateForm from './TeammateForm';
+import axios from 'axios';
 
 const initialFormValues = {
     //TextInputs
@@ -33,21 +34,38 @@ function App() {
   const [disabled, setDisabled] = useState(initialDisabled);
 
   const getTeammates = () => {
-
+    axios.get('http://colleague.com/api/teammates')
+      .then(res => console.log(res))
+      .catch(err => console.error(err))
   }
 
   const postNewTeammate = (newTeammate) => {
-
+    axios.post('http://colleague.com/api/teammates', newTeammate)
+      .then(res => console.log(res))
+      .catch(err => console.error(err))
   }
 
   const inputChange = (input, value) => {
-
+    setFormValues({...formValues, [input]: value});
   }
 
   const formSubmit = () => {
-    
+    const newTeammate = {
+      firstName: formValues.firstName.trim(),
+      email: formValues.email.trim(),
+      role: formValues.role,
+      civil: formValues.civil,
+      hobbies: ['reading', 'coding', 'hiking'].filter(hobby => !!formValues[hobby])
+      // hobbies: ['reading', 'coding', 'hiking'].filter(hobby =>console.log( hobby === true ? [hobby] : false))
+      // hobbies: ['reading', 'coding', 'hiking'].filter(hobby =>formValues[hobby === true ? [hobby] : []]
+    }
+    postNewTeammate(newTeammate);
   }
 
+  useEffect(() => {
+    getTeammates();
+  }, [])
+  
   return (
     <div className='container'>
       <h1>My Colleague(s)</h1>
