@@ -50,11 +50,11 @@ function App() {
     axios.post('fakeapi.com', newTeammate)
       .then(res => {
         // console.log('post res', res)
-        setTeammates([...teammates, res.data]);
+        setTeammates([res.data, ...teammates]);
         setFormValues(initialFormValues);
         setFormErrors('')
       .catch(err => console.error(err))
-      .finally(() => setFormErrors(initialFormValues))
+      // .finally(() => setFormErrors(initialFormValues))
       })
   }
 
@@ -63,7 +63,7 @@ function App() {
     yup.reach(schema, input)
     .validate(value)
     .then(() => setFormErrors({...formErrors, [input]: ''}))
-    .catch(err => setFormErrors({...formValues, [input]: err.errors[0]}))
+    .catch(err => setFormErrors({...formErrors, [input]: err.errors[0]}))
   }
   
   const inputChange = (input, value) => {
