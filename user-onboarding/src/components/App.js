@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Teammate from './Teammate';
 import TeammateForm from './TeammateForm';
-import axios from 'axios';
+import axios from '../axios';
+import '../App.css'
 
 const initialFormValues = {
     //TextInputs
@@ -33,16 +34,25 @@ function App() {
   const [formErrors, setFormErrors] = useState(intialFormErrors)
   const [disabled, setDisabled] = useState(initialDisabled);
 
-  const getTeammates = () => {
-    axios.get('http://colleague.com/api/teammates')
-      .then(res => console.log(res))
+  useEffect(() => {
+    axios.get('fakeapi.com')
+      .then(res => {
+        // console.log('get res', res)
+        setTeammates(res.data)
+      })
       .catch(err => console.error(err))
-  }
-
+  }, [])
+  
+  
   const postNewTeammate = (newTeammate) => {
-    axios.post('http://colleague.com/api/teammates', newTeammate)
-      .then(res => console.log(res))
+    axios.post('fakeapi.com', newTeammate)
+      .then(res => {
+        // console.log('post res', res)
+        setTeammates([...teammates, res.data])
+        setFormValues(initialFormValues);
+        setFormErrors('')
       .catch(err => console.error(err))
+      })
   }
 
   const inputChange = (input, value) => {
@@ -56,16 +66,12 @@ function App() {
       role: formValues.role,
       civil: formValues.civil,
       hobbies: ['reading', 'coding', 'hiking'].filter(hobby => !!formValues[hobby])
-      // hobbies: ['reading', 'coding', 'hiking'].filter(hobby =>console.log( hobby === true ? [hobby] : false))
+      // hobbies: ['reading', 'coding', 'hiking'].filter(hobby =>console.log( hobby === true ? formValues[hobby] : false))
       // hobbies: ['reading', 'coding', 'hiking'].filter(hobby =>formValues[hobby === true ? [hobby] : []]
     }
     postNewTeammate(newTeammate);
   }
 
-  useEffect(() => {
-    getTeammates();
-  }, [])
-  
   return (
     <div className='container'>
       <h1>My Colleague(s)</h1>
@@ -86,5 +92,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

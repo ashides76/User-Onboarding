@@ -16,7 +16,6 @@ const TeammateForm = ({values, submit, change, errors, disabled}) => {
     return (
         <form className='component' onSubmit={onSubmit}>
             <div style={{display: 'flex', flexDirection:'column'}}>
-                <h4>Teammate Form</h4>
                 <label> First Name: &nbsp; 
                     <input 
                         type='text'
@@ -89,7 +88,7 @@ const TeammateForm = ({values, submit, change, errors, disabled}) => {
                     />
                 </label>
             </div>
-            <button>Submit</button>
+            <button disabled={disabled}>Submit</button>
         </form>
     )
 }
