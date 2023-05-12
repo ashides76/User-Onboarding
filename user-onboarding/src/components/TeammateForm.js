@@ -15,6 +15,12 @@ const TeammateForm = ({values, submit, change, errors, disabled}) => {
 
     return (
         <form className='component' onSubmit={onSubmit}>
+            <div className='error'>
+                <div>{errors.firstName}</div>
+                <div>{errors.email}</div>
+                <div>{errors.role}</div>
+                <div>{errors.civil}</div>
+            </div>
             <div style={{display: 'flex', flexDirection:'column'}}>
                 <label> First Name: &nbsp; 
                     <input 

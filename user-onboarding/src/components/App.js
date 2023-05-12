@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Teammate from './Teammate';
 import TeammateForm from './TeammateForm';
 import axios from '../axios';
-import '../App.css'
+import '../App.css';
+import schema from '../validation/formSchema';
+import * as yup from 'yup';
 
 const initialFormValues = {
     //TextInputs
@@ -31,7 +33,7 @@ const initialDisabled = true;
 function App() {
   const [teammates, setTeammates] = useState(initialTeammates);
   const [formValues, setFormValues] = useState(initialFormValues);
-  const [formErrors, setFormErrors] = useState(intialFormErrors)
+  const [formErrors, setFormErrors] = useState(intialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
 
   useEffect(() => {
@@ -48,17 +50,28 @@ function App() {
     axios.post('fakeapi.com', newTeammate)
       .then(res => {
         // console.log('post res', res)
-        setTeammates([...teammates, res.data])
+        setTeammates([...teammates, res.data]);
         setFormValues(initialFormValues);
         setFormErrors('')
       .catch(err => console.error(err))
+      .finally(() => setFormErrors(initialFormValues))
       })
   }
 
+
+  const validateForm = (input, value) => {
+    yup.reach(schema, input)
+    .validate(value)
+    .then(() => setFormErrors({...formErrors, [input]: ''}))
+    .catch(err => setFormErrors({...formValues, [input]: err.errors[0]}))
+  }
+  
   const inputChange = (input, value) => {
+    validateForm(input, value);
     setFormValues({...formValues, [input]: value});
   }
-
+  
+  
   const formSubmit = () => {
     const newTeammate = {
       firstName: formValues.firstName.trim(),
@@ -71,7 +84,11 @@ function App() {
     }
     postNewTeammate(newTeammate);
   }
-
+  
+  useEffect(() => {
+    schema.isValid(formValues).then(valid => setDisabled(!valid))
+  }, [formValues]);
+  
   return (
     <div className='container'>
       <h1>My Colleague(s)</h1>

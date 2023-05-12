@@ -51,5 +51,7 @@
     justify-content: flex-end;
   }
   .error {
+    display: flex;
+    justify-content: center;
     color: red;
   }
