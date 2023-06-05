@@ -29,6 +29,7 @@ const TeammateForm = ({values, submit, change, errors, disabled}) => {
                         value={values.firstName}
                         placeholder='Enter Firstname'
                         onChange={onChange}
+                        id='name'
                     />
                 </label>
                
@@ -39,11 +40,12 @@ const TeammateForm = ({values, submit, change, errors, disabled}) => {
                         value={values.email}
                         placeholder='Enter Email'
                         onChange={onChange}
+                        id='email'
                     />
                 </label>
                 
                 <label> Role: &nbsp;
-                    <select name='role' value={values.role} onChange={onChange}>
+                    <select name='role' value={values.role} onChange={onChange} id='role'>
                         <option value={''}>Select a Role</option>
                         <option value={'student'}>Student</option>
                         <option value={'developer'}>Software Developer</option>
@@ -58,6 +60,7 @@ const TeammateForm = ({values, submit, change, errors, disabled}) => {
                         value={'single'}
                         checked={values.civil === 'single'}
                         onChange={onChange}
+                        id='single'
                     /> 
                 </label>
                 <label> Married: &nbsp;
@@ -67,6 +70,7 @@ const TeammateForm = ({values, submit, change, errors, disabled}) => {
                         value={'married'}
                         checked={values.civil === 'married'}
                         onChange={onChange}
+                        id='married'
                     /> 
                 </label>
                 <label> Hiking: &nbsp; 
@@ -75,6 +79,7 @@ const TeammateForm = ({values, submit, change, errors, disabled}) => {
                         name='hiking'
                         checked={values.hiking}
                         onChange={onChange}
+                        id='hiking'
                     />
                 </label>
                 <label> Reading: &nbsp;
@@ -83,6 +88,7 @@ const TeammateForm = ({values, submit, change, errors, disabled}) => {
                         name='reading'
                         checked={values.reading}
                         onChange={onChange}
+                        id='reading'
                     />
                 </label>
                 <label> Coding: &nbsp;
@@ -91,10 +97,11 @@ const TeammateForm = ({values, submit, change, errors, disabled}) => {
                         name='coding'
                         checked={values.coding}
                         onChange={onChange}
+                        id='coding'
                     />
                 </label>
             </div>
-            <button disabled={disabled}>Submit</button>
+            <button disabled={disabled} id='submit'>Submit</button>
         </form>
     )
 }
